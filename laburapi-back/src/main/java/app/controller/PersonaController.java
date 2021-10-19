@@ -1,11 +1,13 @@
 package app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.model.entity.Persona;
+import app.api.dto.PersonaDto;
 import app.service.PersonaService;
 
 @RestController
@@ -15,10 +17,12 @@ public class PersonaController {
 	@Autowired
 	private PersonaService personaService;
 	
-	@GetMapping(value = "/persona")
-	public void createPersona() {
+	@PostMapping(value = "/persona")
+	public PersonaDto createPersona(@RequestBody PersonaDto persona) {
 
-		personaService.createPersona(new Persona("12345678A","Nombre test","666555666"));
+		PersonaDto result = personaService.createPersona(persona);
+
+		return result;
 	}
 	
 }

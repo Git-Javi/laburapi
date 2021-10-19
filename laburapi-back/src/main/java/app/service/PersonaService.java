@@ -1,9 +1,9 @@
 package app.service;
 
-import app.model.entity.Persona;
+import app.api.dto.PersonaDto;
 
 public interface PersonaService {
 
-	void createPersona(Persona persona);
+	PersonaDto createPersona(PersonaDto persona);
 	
 }
