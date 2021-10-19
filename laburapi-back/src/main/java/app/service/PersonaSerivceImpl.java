@@ -7,7 +7,9 @@ import app.api.dto.PersonaDto;
 import app.mapper.PersonaMapper;
 import app.model.entity.Persona;
 import app.repository.PersonaRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class PersonaSerivceImpl implements PersonaService {
 	
@@ -20,11 +22,16 @@ public class PersonaSerivceImpl implements PersonaService {
 	@Override
 	public PersonaDto createPersona(PersonaDto persona) {
 
+		log.info("Inicio :: PersonaService.createPersona(PersonaDto): {}", persona);
+
 		Persona personaRequest = personaMapper.personaDtoToPersona(persona);
+		log.info("Request :: PersonaService.createPersona(PersonaDto): {}", personaRequest);
 
 		Persona personaResponse = personaRepository.save(personaRequest);
+		log.info("Response :: PersonaService.createPersona(PersonaDto): {}", personaResponse);
 
 		PersonaDto result = personaMapper.personaToPersonaDto(personaResponse);
+		log.info("Fin :: PersonaService.createPersona(PersonaDto): {}", result);
 
 		return result;
 	}
