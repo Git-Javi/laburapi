@@ -4,6 +4,10 @@ import app.api.dto.PersonaDto;
 
 public interface PersonaService {
 
-	PersonaDto createPersona(PersonaDto persona);
+	public PersonaDto createPersona(PersonaDto persona);
+
+	public PersonaDto findPersonaById(Long id);
+	
+	public PersonaDto personaFind(Long id);
 	
 }
