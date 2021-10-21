@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,15 @@ public class PersonaController {
 	public PersonaDto getPersona(@PathVariable("id") Long id) {
 
 		return personaService.findPersonaById(id);
+	}
+
+	@PutMapping("/persona/{id}")
+	public PersonaDto updatePersona(@PathVariable("id") Long id, @RequestBody PersonaDto persona) {
+
+		log.info("Inicio :: PersonaController.updatePersona(ID: " + id + " PersonaDto): {}", persona);
+		PersonaDto result = personaService.updatePersonaById(id, persona);
+		log.info("Fin :: PersonaController.updatePersona(PersonaDto): {}", result);
+		return result;
 	}
 
 }

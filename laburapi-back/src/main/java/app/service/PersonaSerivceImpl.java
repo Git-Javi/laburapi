@@ -42,6 +42,15 @@ public class PersonaSerivceImpl implements PersonaService {
 		return pDto;
 	}
 	
+	@Override
+	public PersonaDto updatePersonaById(Long id, PersonaDto personaDto) {
+
+		PersonaDto pDto = personaMergeIdSave(id, personaDto);
+		log.info("Response :: La persona con id " + id + " se ha actualizado a: {}", pDto);
+
+		return pDto;
+	}
+	
 	// -------------------------------------------------------------------------------
 	
 	@Override
@@ -51,6 +60,16 @@ public class PersonaSerivceImpl implements PersonaService {
 		PersonaDto personaDto = personaMapper.personaToPersonaDto(persona);
 
 		return personaDto;
+	}
+	
+
+	public PersonaDto personaMergeIdSave(Long id, PersonaDto personaDto) {
+
+		Persona persona = personaMapper.mergePersonaIdAndPersonaDtoToPersona(id, personaDto);
+		Persona personaSaved = personaRepository.save(persona);
+		PersonaDto personaDtoDevuelta = personaMapper.personaToPersonaDto(personaSaved);
+
+		return personaDtoDevuelta;
 	}
 
 }
