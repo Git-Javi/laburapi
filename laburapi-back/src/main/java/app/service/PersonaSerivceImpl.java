@@ -51,6 +51,13 @@ public class PersonaSerivceImpl implements PersonaService {
 		return pDto;
 	}
 	
+	@Override
+	public void deletePersonaById(Long id) {
+
+		personaRepository.deleteById(id);
+		log.info("Response :: La persona con id " + id + " se ha eliminado");
+	}
+	
 	// -------------------------------------------------------------------------------
 	
 	@Override
@@ -62,7 +69,7 @@ public class PersonaSerivceImpl implements PersonaService {
 		return personaDto;
 	}
 	
-
+	@Override
 	public PersonaDto personaMergeIdSave(Long id, PersonaDto personaDto) {
 
 		Persona persona = personaMapper.mergePersonaIdAndPersonaDtoToPersona(id, personaDto);

@@ -10,6 +10,8 @@ public interface PersonaService {
 	
 	public PersonaDto updatePersonaById(Long id, PersonaDto persona);
 	
+	public void deletePersonaById(Long id);
+	
 	public PersonaDto personaFind(Long id);
 	
 	public PersonaDto personaMergeIdSave(Long id, PersonaDto personaDto);
