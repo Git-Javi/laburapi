@@ -1,5 +1,8 @@
 package app.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +18,8 @@ import app.service.PersonaService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestController
 @RequestMapping(path = "/laburapi")
+@RestController
 public class PersonaController {
 
 	@Autowired
@@ -44,6 +47,7 @@ public class PersonaController {
 		log.info("Inicio :: PersonaController.updatePersona(ID): " + id + " (PersonaDto): {}", persona);
 		PersonaDto result = personaService.updatePersonaById(id, persona);
 		log.info("Fin :: PersonaController.updatePersona(PersonaDto): {}", result);
+		
 		return result;
 	}
 	
@@ -51,6 +55,19 @@ public class PersonaController {
 	public void deletePersona(@PathVariable("id") Long id) {
 
 		personaService.deletePersonaById(id);
+	}
+	
+	@GetMapping(value = "/personas")
+	public List<PersonaDto> showPersonas() {
+
+		List<PersonaDto> listaPersonasDto = new ArrayList<>();
+		listaPersonasDto.addAll(personaService.findPersonas());
+
+		for (PersonaDto p : listaPersonasDto) {
+			log.info("Persona de la lista: {}", p);
+		}
+		
+		return listaPersonasDto;
 	}
 
 }

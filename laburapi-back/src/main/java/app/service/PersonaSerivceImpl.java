@@ -1,5 +1,8 @@
 package app.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +59,21 @@ public class PersonaSerivceImpl implements PersonaService {
 
 		personaRepository.deleteById(id);
 		log.info("Response :: La persona con id " + id + " se ha eliminado");
+	}
+	
+	@Override
+	public List<PersonaDto> findPersonas() {
+
+		List<PersonaDto> listaPersonasDto = new ArrayList<>();
+		List<Persona> listaPersonas = new ArrayList<>();
+		listaPersonas.addAll((List<Persona>) personaRepository.findAll());
+
+		for (Persona p : listaPersonas) {
+			PersonaDto pDto = personaMapper.personaToPersonaDto(p);
+			listaPersonasDto.add(pDto);
+		}
+
+		return listaPersonasDto;
 	}
 	
 	// -------------------------------------------------------------------------------

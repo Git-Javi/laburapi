@@ -1,5 +1,7 @@
 package app.service;
 
+import java.util.List;
+
 import app.api.dto.PersonaDto;
 
 public interface PersonaService {
@@ -11,6 +13,8 @@ public interface PersonaService {
 	public PersonaDto updatePersonaById(Long id, PersonaDto persona);
 	
 	public void deletePersonaById(Long id);
+	
+	public List<PersonaDto> findPersonas();
 	
 	public PersonaDto personaFind(Long id);
 	
