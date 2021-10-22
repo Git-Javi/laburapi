@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.api.dto.PersonaDto;
+import app.exception.NotFoundLaburapiException;
 import app.mapper.PersonaMapper;
 import app.model.entity.Persona;
 import app.repository.PersonaRepository;
@@ -39,6 +40,7 @@ public class PersonaSerivceImpl implements PersonaService {
 	@Override
 	public PersonaDto findPersonaById(Long id) {
 
+		personaExists(id);
 		PersonaDto pDto = personaFind(id);
 		log.info("Response :: La persona solicitada es: {}", pDto);
 
@@ -48,6 +50,7 @@ public class PersonaSerivceImpl implements PersonaService {
 	@Override
 	public PersonaDto updatePersonaById(Long id, PersonaDto personaDto) {
 
+		personaExists(id);
 		PersonaDto pDto = personaMergeIdSave(id, personaDto);
 		log.info("Response :: La persona con id " + id + " se ha actualizado a: {}", pDto);
 
@@ -57,6 +60,7 @@ public class PersonaSerivceImpl implements PersonaService {
 	@Override
 	public void deletePersonaById(Long id) {
 
+		personaExists(id);
 		personaRepository.deleteById(id);
 		log.info("Response :: La persona con id " + id + " se ha eliminado");
 	}
@@ -77,6 +81,14 @@ public class PersonaSerivceImpl implements PersonaService {
 	}
 	
 	// -------------------------------------------------------------------------------
+	
+	@Override
+	public void personaExists(Long id) {
+
+		if (!personaRepository.existsById(id)) {
+			throw new NotFoundLaburapiException("No se ha encontrado ese id");
+		}
+	}
 	
 	@Override
 	public PersonaDto personaFind(Long id) {
