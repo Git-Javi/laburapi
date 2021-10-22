@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.api.dto.PersonaDto;
@@ -25,6 +27,7 @@ public class PersonaController {
 	@Autowired
 	private PersonaService personaService;
 
+	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping(value = "/persona")
 	public PersonaDto createPersona(@RequestBody PersonaDto persona) {
 
@@ -35,12 +38,14 @@ public class PersonaController {
 		return result;
 	}
 
+	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/persona/{id}")
 	public PersonaDto getPersona(@PathVariable("id") Long id) {
 
 		return personaService.findPersonaById(id);
 	}
 
+	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping("/persona/{id}")
 	public PersonaDto updatePersona(@PathVariable("id") Long id, @RequestBody PersonaDto persona) {
 
@@ -51,12 +56,14 @@ public class PersonaController {
 		return result;
 	}
 	
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@DeleteMapping("/persona/{id}")
 	public void deletePersona(@PathVariable("id") Long id) {
 
 		personaService.deletePersonaById(id);
 	}
 	
+	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/personas")
 	public List<PersonaDto> showPersonas() {
 
