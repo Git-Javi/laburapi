@@ -3,8 +3,13 @@ package app.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import app.api.dto.PersonaDto;
 import app.exception.NotFoundLaburapiException;
@@ -13,10 +18,11 @@ import app.model.entity.Persona;
 import app.repository.PersonaRepository;
 import lombok.extern.slf4j.Slf4j;
 
+@Validated
 @Slf4j
 @Service
 public class PersonaSerivceImpl implements PersonaService {
-	
+
 	@Autowired
 	PersonaRepository personaRepository;
 
@@ -24,7 +30,7 @@ public class PersonaSerivceImpl implements PersonaService {
 	private PersonaMapper personaMapper;
 
 	@Override
-	public PersonaDto createPersona(PersonaDto persona) {
+	public PersonaDto createPersona(@NotNull @Valid PersonaDto persona) {
 
 		log.info("Inicio :: PersonaService.createPersona(PersonaDto): {}", persona);
 		Persona personaRequest = personaMapper.personaDtoToPersona(persona);
@@ -36,9 +42,9 @@ public class PersonaSerivceImpl implements PersonaService {
 
 		return result;
 	}
-	
+
 	@Override
-	public PersonaDto findPersonaById(Long id) {
+	public PersonaDto findPersonaById(@NotNull @Positive Long id) {
 
 		personaExists(id);
 		PersonaDto pDto = personaFind(id);
@@ -46,9 +52,9 @@ public class PersonaSerivceImpl implements PersonaService {
 
 		return pDto;
 	}
-	
+
 	@Override
-	public PersonaDto updatePersonaById(Long id, PersonaDto personaDto) {
+	public PersonaDto updatePersonaById(@NotNull @Positive Long id, @NotNull @Valid PersonaDto personaDto) {
 
 		personaExists(id);
 		PersonaDto pDto = personaMergeIdSave(id, personaDto);
@@ -56,15 +62,15 @@ public class PersonaSerivceImpl implements PersonaService {
 
 		return pDto;
 	}
-	
+
 	@Override
-	public void deletePersonaById(Long id) {
+	public void deletePersonaById(@NotNull @Positive Long id) {
 
 		personaExists(id);
 		personaRepository.deleteById(id);
 		log.info("Response :: La persona con id " + id + " se ha eliminado");
 	}
-	
+
 	@Override
 	public List<PersonaDto> findPersonas() {
 
@@ -79,28 +85,28 @@ public class PersonaSerivceImpl implements PersonaService {
 
 		return listaPersonasDto;
 	}
-	
+
 	// -------------------------------------------------------------------------------
-	
+
 	@Override
-	public void personaExists(Long id) {
+	public void personaExists(@NotNull @Positive Long id) {
 
 		if (!personaRepository.existsById(id)) {
 			throw new NotFoundLaburapiException("No se ha encontrado ese id");
 		}
 	}
-	
+
 	@Override
-	public PersonaDto personaFind(Long id) {
+	public PersonaDto personaFind(@NotNull @Positive Long id) {
 
 		Persona persona = personaRepository.findById(id).get();
 		PersonaDto personaDto = personaMapper.personaToPersonaDto(persona);
 
 		return personaDto;
 	}
-	
+
 	@Override
-	public PersonaDto personaMergeIdSave(Long id, PersonaDto personaDto) {
+	public PersonaDto personaMergeIdSave(@NotNull @Positive Long id, @NotNull @Valid PersonaDto personaDto) {
 
 		Persona persona = personaMapper.mergePersonaIdAndPersonaDtoToPersona(id, personaDto);
 		Persona personaSaved = personaRepository.save(persona);
