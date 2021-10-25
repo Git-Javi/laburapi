@@ -3,6 +3,8 @@ package app.api.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import app.annotation.constraint.Dni;
+import app.annotation.constraint.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ public class PersonaDto {
 
 	private Long id;
 
+	@Dni
 	@NotBlank(message = "Debe indicar el DNI de la persona.")
 	@NotNull
 	private String dni;
@@ -22,6 +25,7 @@ public class PersonaDto {
 	@NotNull
 	private String nombre;
 
+	@Phone
 	@NotBlank(message = "Debe indicar el teléfono de la persona.")
 	@NotNull
 	private String telefono;
