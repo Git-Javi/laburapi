@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.api.dto.PersonaDto;
 import app.service.PersonaService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
+@Api(tags = "Persona Controller")
 @Validated
 @Slf4j
 @RequestMapping(path = "/laburapi")
@@ -33,6 +38,10 @@ public class PersonaController {
 	@Autowired
 	private PersonaService personaService;
 
+	@ApiOperation(value = "Crea una persona")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 201, message = "CREATED"),
+			@ApiResponse(code = 400, message = "BAD REQUEST") })
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping(value = "/persona")
 	public PersonaDto createPersona(@RequestBody @NotNull @Valid PersonaDto persona) {
@@ -44,16 +53,25 @@ public class PersonaController {
 		return result;
 	}
 
+	@ApiOperation("Muestra una persona por id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/persona/{id}")
-	public PersonaDto getPersona(@PathVariable("id") @NotNull @Positive Long id) {
+	public PersonaDto getPersona(@PathVariable("id") @NotNull @Positive(message = "El ID debe ser positivo") Long id) {
 
 		return personaService.findPersonaById(id);
 	}
 
+	@ApiOperation("Actualiza todos los datos de una persona por id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "BAD REQUEST"),
+			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping("/persona/{id}")
-	public PersonaDto updatePersona(@PathVariable("id") @NotNull @Positive Long id, @RequestBody  @NotNull @Valid PersonaDto persona) {
+	public PersonaDto updatePersona(@PathVariable("id") @NotNull @Positive Long id, @RequestBody @NotNull @Valid PersonaDto persona) {
 
 		log.info("Inicio :: PersonaController.updatePersona(ID): " + id + " (PersonaDto): {}", persona);
 		PersonaDto result = personaService.updatePersonaById(id, persona);
@@ -62,6 +80,10 @@ public class PersonaController {
 		return result;
 	}
 	
+	@ApiOperation("Elimina una persona por id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 204, message = "NO CONTENT"),
+			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@DeleteMapping("/persona/{id}")
 	public void deletePersona(@PathVariable("id") @NotNull @Positive Long id) {
@@ -69,6 +91,8 @@ public class PersonaController {
 		personaService.deletePersonaById(id);
 	}
 	
+	@ApiOperation("Muestra las personas")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/personas")
 	public List<PersonaDto> showPersonas() {

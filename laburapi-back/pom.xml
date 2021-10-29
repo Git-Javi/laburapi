@@ -19,6 +19,7 @@
 		<io.springfox.version>2.9.2</io.springfox.version>
 		<org.projectlombok.version>1.18.8</org.projectlombok.version>
 		<org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
+		<io.springfox.version>2.9.2</io.springfox.version>
 		<org.apache.httpcomponents.version>4.5.9</org.apache.httpcomponents.version>
 	</properties>
 	
@@ -71,6 +72,20 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<!-- ======================== Swagger ======================== -->
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${io.springfox.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${io.springfox.version}</version>
 		</dependency>
 
 		<!-- ======================== HttpClient ======================== -->
