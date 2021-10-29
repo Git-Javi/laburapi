@@ -56,10 +56,11 @@ public class PersonaController {
 	@ApiOperation("Muestra una persona por id")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "BAD REQUEST"),
 			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/persona/{id}")
-	public PersonaDto getPersona(@PathVariable("id") @NotNull @Positive(message = "El ID debe ser positivo") Long id) {
+	public PersonaDto getPersona(@PathVariable("id") @NotNull @Positive Long id) {
 
 		return personaService.findPersonaById(id);
 	}
@@ -83,6 +84,7 @@ public class PersonaController {
 	@ApiOperation("Elimina una persona por id")
 	@ApiResponses(value = {
 			@ApiResponse(code = 204, message = "NO CONTENT"),
+			@ApiResponse(code = 400, message = "BAD REQUEST"),
 			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@DeleteMapping("/persona/{id}")
