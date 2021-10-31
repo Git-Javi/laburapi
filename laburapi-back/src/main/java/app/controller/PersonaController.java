@@ -2,6 +2,7 @@ package app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -107,6 +109,18 @@ public class PersonaController {
 		}
 		
 		return listaPersonasDto;
+	}
+	
+	@ApiOperation("Actualiza parcialmente una persona por id")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "BAD REQUEST"),
+			@ApiResponse(code = 404, message = "NOT FOUND") })
+	@PatchMapping(value = "/persona/{id}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public PersonaDto patchPersona(@PathVariable("id") @NotNull @Positive Long id, @RequestBody Map<String, Object> fields) {
+
+		return personaService.updatePersonaFieldsById(id, fields);
 	}
 
 }

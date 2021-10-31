@@ -1,7 +1,9 @@
 package app.service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.ReflectionUtils;
 import app.api.dto.PersonaDto;
+import app.exception.FieldNotFoundLaburapiException;
 import app.exception.NotFoundLaburapiException;
 import app.mapper.PersonaMapper;
 import app.model.entity.Persona;
@@ -84,6 +89,29 @@ public class PersonaSerivceImpl implements PersonaService {
 		}
 
 		return listaPersonasDto;
+	}
+	
+	@Override
+	public PersonaDto updatePersonaFieldsById(@NotNull @Positive Long id, Map<String, Object> fields) {
+		personaExists(id);
+		// Recuperamos la persona de BBD
+		PersonaDto personaDto = personaFind(id);
+		// Se mapean los campos sobre la entidaad
+		final ObjectMapper mapper = new ObjectMapper();
+		final PersonaDto personaNew = mapper.convertValue(fields, PersonaDto.class);
+		// Recorremos los campos
+		fields.forEach((k, v) -> {
+			// Obtenemos el campo
+			Field field = ReflectionUtils.findField(PersonaDto.class, k);
+			if (field == null) {
+				throw new FieldNotFoundLaburapiException("El campo (" + k + ") no existe en la clase");
+			}
+			// Guadamos en el campo del objeto original el valor del objeto mapeado
+			ReflectionUtils.makeAccessible(field); // Es necesario para que permita accerder al campo ya que en nuestra entidad es private
+			ReflectionUtils.setField(field, personaDto, ReflectionUtils.getField(field, personaNew));
+		});
+		PersonaDto result = personaMergeIdSave(id, personaDto);
+		return result;
 	}
 
 	// -------------------------------------------------------------------------------

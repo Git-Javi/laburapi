@@ -1,6 +1,7 @@
 package app.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,8 @@ public interface PersonaService {
 	public void deletePersonaById(@NotNull @Positive Long id);
 
 	public List<PersonaDto> findPersonas();
+	
+	public PersonaDto updatePersonaFieldsById(@NotNull @Positive Long id, Map<String,Object> fields);
 
 	public void personaExists(@NotNull @Positive Long id);
 
