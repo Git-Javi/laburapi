@@ -3,6 +3,7 @@ package app.controller.exception;
 import java.io.IOException;
 
 import javax.validation.ConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,5 +17,5 @@ public class CustomExceptionHandler {
 		webRequest.getResponse().
 		sendError(HttpStatus.BAD_REQUEST.value(), cve.getMessage());
 	}
-
+	
 }
