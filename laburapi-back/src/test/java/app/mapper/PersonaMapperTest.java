@@ -24,7 +24,7 @@ package app.mapper;
 		PersonaMapper personaMapper;
 
 		@Test
-		public void comprobarCamposConversionPersonaToPersonaDto() {
+		public void conversionCamposPersonaToPersonaDtoTest() {
 
 			Persona persona = new Persona("44333222J","PepeTest", "981223344");
 			
@@ -37,7 +37,7 @@ package app.mapper;
 		}
 		
 		@Test
-		public void comprobarCamposConversionPersonaDtoToPersona() {
+		public void conversionCamposPersonaDtoToPersonaTest() {
 
 			PersonaDto personaDto = new PersonaDto(1L,"44333222J","ManoloTest", "987456123");
 			
@@ -51,7 +51,7 @@ package app.mapper;
 
 		
 		@Test
-		public void comprobarMapperIgnoraIdEnConversion() {
+		public void mapperIgnoraCampoIdEnConversionTest() {
 			
 			Persona persona = new Persona();
 			PersonaDto personaDto = new PersonaDto(3L,"44333222J","PepeTest", "999888777");
