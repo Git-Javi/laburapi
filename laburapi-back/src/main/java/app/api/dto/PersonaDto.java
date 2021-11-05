@@ -5,12 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import app.annotation.constraint.Dni;
 import app.annotation.constraint.Phone;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@ApiModel(description = "Detalles sobre la entidad: ")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
