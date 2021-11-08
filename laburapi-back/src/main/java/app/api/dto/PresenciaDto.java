@@ -2,9 +2,11 @@ package app.api.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -32,14 +34,21 @@ public class PresenciaDto {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@PastOrPresent(message = "El instante de inicio no puede ser futuro")
+	@DateTimeFormat
 	@NotNull
 	private LocalDateTime inicio;
 	
-	@ApiModelProperty(value = "La hora de fin de la Presencia", required = true, accessMode = AccessMode.READ_ONLY, position = 3)
+	@ApiModelProperty(value = "La hora de fin de la Presencia", required = false, accessMode = AccessMode.READ_ONLY, position = 3)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@PastOrPresent(message = "El instante de inicio no puede ser futuro")
+	@DateTimeFormat
 	@Nullable
 	private LocalDateTime fin;
+	
+	@Valid
+	@NotNull
+	@ApiModelProperty(value = "La Persona que ha registrado la Presencia", required = true, accessMode = AccessMode.READ_ONLY, position = 4)
+	private PersonaDto persona;
 
 }
