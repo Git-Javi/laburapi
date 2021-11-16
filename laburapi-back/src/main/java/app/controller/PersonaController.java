@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api(tags = "Persona Controller")
 @Validated
 @Slf4j
-@RequestMapping(path = "/laburapi")
+@RequestMapping(path = "/laburapi", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 @RestController
 public class PersonaController {
 

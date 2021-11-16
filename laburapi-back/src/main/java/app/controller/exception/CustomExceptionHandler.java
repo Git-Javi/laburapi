@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -31,6 +32,12 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(InvalidFormatException.class)
 	public void handleInvalidFormatException(InvalidFormatException dtpe, ServletWebRequest webRequest) throws IOException {
 		webRequest.getResponse().sendError(HttpStatus.BAD_REQUEST.value(), dtpe.getMessage());
+	}
+
+	// Producida por un campo no conocido para el ObjectMapper
+	@ExceptionHandler(UnrecognizedPropertyException.class)
+	public void UnrecognizedPropertyExceptionException(UnrecognizedPropertyException upe, ServletWebRequest webRequest) throws IOException {
+		webRequest.getResponse().sendError(HttpStatus.BAD_REQUEST.value(), upe.getMessage());
 	}
 
 }

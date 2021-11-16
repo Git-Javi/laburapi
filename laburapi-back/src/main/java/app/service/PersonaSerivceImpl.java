@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PersonaSerivceImpl implements PersonaService {
 
 	@Autowired
-	PersonaRepository personaRepository;
+	private PersonaRepository personaRepository;
 
 	@Autowired
 	private PersonaMapper personaMapper;
