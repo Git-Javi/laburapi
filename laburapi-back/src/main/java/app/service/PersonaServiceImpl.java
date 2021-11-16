@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Validated
 @Slf4j
 @Service
-public class PersonaSerivceImpl implements PersonaService {
+public class PersonaServiceImpl implements PersonaService {
 
 	@Autowired
 	private PersonaRepository personaRepository;

@@ -35,7 +35,7 @@ public class PersonaServiceTest {
 	private PersonaMapper personaMapper;
 
 	@InjectMocks
-	private PersonaService personaService = new PersonaSerivceImpl();
+	private PersonaService personaService = new PersonaServiceImpl();
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 

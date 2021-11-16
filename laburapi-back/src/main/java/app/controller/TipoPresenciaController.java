@@ -23,105 +23,105 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.api.dto.PresenciaDto;
-import app.service.PresenciaService;
+import app.api.dto.TipoPresenciaDto;
+import app.service.TipoPresenciaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(tags = "Presencia Controller")
+@Api(tags = "Tipo Presencia Controller")
 @Validated
 @Slf4j
 @RequestMapping(path = "/laburapi", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 @RestController
-public class PresenciaController {
+public class TipoPresenciaController {
 
 	@Autowired
-	private PresenciaService presenciaService;
+	private TipoPresenciaService tipoPresenciaService;
 
-	@ApiOperation(value = "Crea una presencia")
+	@ApiOperation(value = "Crea un Tipo de Presencia")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 201, message = "CREATED"),
 			@ApiResponse(code = 400, message = "BAD REQUEST") })
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping(value = "/presencia")
-	public PresenciaDto createPresencia(@RequestBody @NotNull @Valid PresenciaDto presencia) {
+	@PostMapping(value = "/tipoPresencia")
+	public TipoPresenciaDto createTipoPresencia(@RequestBody @NotNull @Valid TipoPresenciaDto tipoPresencia) {
 
-		log.info("Inicio :: PresenciaController.createPresencia(PresenciaDto): {}", presencia);
-		PresenciaDto result = presenciaService.createPresencia(presencia);
-		log.info("Fin :: PresenciaController.createPresencia(PresenciaDto): {}", result);
+		log.info("Inicio :: TipoPresenciaController.createTipoPresencia(TipoPresenciaDto): {}", tipoPresencia);
+		TipoPresenciaDto result = tipoPresenciaService.createTipoPresencia(tipoPresencia);
+		log.info("Fin :: TipoPresenciaController.createTipoPresencia(TipoPresenciaDto): {}", result);
 
 		return result;
 	}
 
-	@ApiOperation("Muestra una presencia por id")
+	@ApiOperation("Muestra un Tipo de Presencia por id")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 400, message = "BAD REQUEST"),
 			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping("/presencia/{id}")
-	public PresenciaDto getPresencia(@PathVariable("id") @NotNull @Positive Long id) {
+	@GetMapping("/tipoPresencia/{id}")
+	public TipoPresenciaDto getTipoPresencia(@PathVariable("id") @NotNull @Positive Long id) {
 
-		return presenciaService.findPresenciaById(id);
+		return tipoPresenciaService.findTipoPresenciaById(id);
 	}
 
-	@ApiOperation("Actualiza todos los datos de una presencia por id")
+	@ApiOperation("Actualiza todos los datos de un Tipo de Presencia por id")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 400, message = "BAD REQUEST"),
 			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping("/presencia/{id}")
-	public PresenciaDto updatePresencia(@PathVariable("id") @NotNull @Positive Long id, @RequestBody @NotNull @Valid PresenciaDto presencia) {
+	@PutMapping("/tipoPresencia/{id}")
+	public TipoPresenciaDto updateTipoPresencia(@PathVariable("id") @NotNull @Positive Long id, @RequestBody @NotNull @Valid TipoPresenciaDto tipoPresencia) {
 
-		log.info("Inicio :: PresenciaController.updatePresencia(ID): " + id + " (PresenciaDto): {}", presencia);
-		PresenciaDto result = presenciaService.updatePresenciaById(id, presencia);
-		log.info("Fin :: PresenciaController.updatePresencia(PresenciaDto): {}", result);
+		log.info("Inicio :: TipoPresenciaController.updateTipoPresencia(ID): " + id + " (TipoPresenciaDto): {}", tipoPresencia);
+		TipoPresenciaDto result = tipoPresenciaService.updateTipoPresenciaById(id, tipoPresencia);
+		log.info("Fin :: TipoPresenciaController.updateTipoPresencia(TipoPresenciaDto): {}", result);
 		
 		return result;
 	}
 	
-	@ApiOperation("Elimina una presencia por id")
+	@ApiOperation("Elimina un Tipo de Presencia por id")
 	@ApiResponses(value = {
 			@ApiResponse(code = 204, message = "NO CONTENT"),
 			@ApiResponse(code = 400, message = "BAD REQUEST"),
 			@ApiResponse(code = 404, message = "NOT FOUND") })
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	@DeleteMapping("/presencia/{id}")
-	public void deletePresencia(@PathVariable("id") @NotNull @Positive Long id) {
+	@DeleteMapping("/tipoPresencia/{id}")
+	public void deleteTipoPresencia(@PathVariable("id") @NotNull @Positive Long id) {
 
-		presenciaService.deletePresenciaById(id);
+		tipoPresenciaService.deleteTipoPresenciaById(id);
 	}
 	
-	@ApiOperation("Muestra las presencias")
+	@ApiOperation("Muestra los Tipos de Presencia")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/presencias")
-	public List<PresenciaDto> showPresencias() {
+	@GetMapping(value = "/tipoPresencias")
+	public List<TipoPresenciaDto> showTipoPresencias() {
 
-		List<PresenciaDto> listaPresenciasDto = new ArrayList<>();
-		listaPresenciasDto.addAll(presenciaService.findPresencias());
+		List<TipoPresenciaDto> listaTipoPresenciasDto = new ArrayList<>();
+		listaTipoPresenciasDto.addAll(tipoPresenciaService.findTipoPresencias());
 
-		for (PresenciaDto p : listaPresenciasDto) {
-			log.info("Presencia de la lista: {}", p);
+		for (TipoPresenciaDto p : listaTipoPresenciasDto) {
+			log.info("TipoPresencia de la lista: {}", p);
 		}
 		
-		return listaPresenciasDto;
+		return listaTipoPresenciasDto;
 	}
 	
-	@ApiOperation("Actualiza parcialmente una presencia por id")
+	@ApiOperation("Actualiza parcialmente un Tipo de Presencia por id")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 400, message = "BAD REQUEST"),
 			@ApiResponse(code = 404, message = "NOT FOUND") })
-	@PatchMapping(value = "/presencia/{id}")
+	@PatchMapping(value = "/tipoPresencia/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public PresenciaDto patchPresencia(@PathVariable("id") @NotNull @Positive Long id, @RequestBody Map<String, Object> fields) {
+	public TipoPresenciaDto patchTipoPresencia(@PathVariable("id") @NotNull @Positive Long id, @RequestBody Map<String, Object> fields) {
 
-		return presenciaService.updatePresenciaFieldsById(id, fields);
+		return tipoPresenciaService.updateTipoPresenciaFieldsById(id, fields);
 	}
 
 }
