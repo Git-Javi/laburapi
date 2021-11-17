@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.PastOrPresent;
 
@@ -46,5 +47,10 @@ public class Presencia {
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_persona", nullable = false)
 	private Persona persona;
+	
+	@NonNull
+	@OneToOne
+	@JoinColumn(name = "id_tipo_presencia", nullable = false)
+	private TipoPresencia tipoPresencia;
 		
 }

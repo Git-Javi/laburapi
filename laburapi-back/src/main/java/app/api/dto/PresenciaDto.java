@@ -50,5 +50,10 @@ public class PresenciaDto {
 	@NotNull
 	@ApiModelProperty(value = "La Persona que ha registrado la Presencia", required = true, accessMode = AccessMode.READ_ONLY, position = 4)
 	private PersonaDto persona;
+	
+	@Valid
+	@NotNull
+	@ApiModelProperty(value = "El el Tipo de la Presencia", required = true, accessMode = AccessMode.READ_ONLY, position = 5)
+	private TipoPresenciaDto tipoPresencia;
 
 }

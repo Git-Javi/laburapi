@@ -2,6 +2,7 @@ package app.controller.exception;
 
 import java.io.IOException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
@@ -40,4 +41,9 @@ public class CustomExceptionHandler {
 		webRequest.getResponse().sendError(HttpStatus.BAD_REQUEST.value(), upe.getMessage());
 	}
 
+	// Producida cuando no se encuentra la entidad sobre la que mappear las relaciones
+	@ExceptionHandler(EntityNotFoundException.class)
+	public void EntityNotFoundExceptionExceptionException(EntityNotFoundException enf, ServletWebRequest webRequest) throws IOException {
+		webRequest.getResponse().sendError(HttpStatus.BAD_REQUEST.value(), enf.getMessage());
+	}
 }
