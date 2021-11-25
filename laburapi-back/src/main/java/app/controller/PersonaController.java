@@ -27,11 +27,11 @@ import app.api.dto.PersonaDto;
 import app.service.PersonaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(tags = "Persona Controller")
+@Api(tags = "Persona", description = "Gestiona las personas y sus datos")
 @Validated
 @Slf4j
 @RequestMapping(path = "/laburapi", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)

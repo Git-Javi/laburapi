@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(tags = "Presencia Controller")
+@Api(tags = "Presencia", description = "Gestiona las presencias de las personas")
 @Validated
 @Slf4j
 @RequestMapping(path = "/laburapi", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
@@ -122,6 +122,22 @@ public class PresenciaController {
 	public PresenciaDto patchPresencia(@PathVariable("id") @NotNull @Positive Long id, @RequestBody Map<String, Object> fields) {
 
 		return presenciaService.updatePresenciaFieldsById(id, fields);
+	}
+	
+	@ApiOperation("Muestra las presencias de una persona concreta por id (Persona)")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
+	@ResponseStatus(value = HttpStatus.OK)
+	@GetMapping(value = "/presencias/{id}")
+	public List<PresenciaDto> showPresenciasByPersonaId(@PathVariable("id") @NotNull @Positive Long id) {
+
+		List<PresenciaDto> listaPresenciasDto = new ArrayList<>();
+		listaPresenciasDto.addAll(presenciaService.findPresenciasByPersonaId(id));
+
+		for (PresenciaDto p : listaPresenciasDto) {
+			log.info("Presencia de la lista: {}", p);
+		}
+		
+		return listaPresenciasDto;
 	}
 
 }

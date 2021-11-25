@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.6.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>gal.laburapi</groupId>
 	<artifactId>laburapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>laburapi</name>
 	<description>Control horario de empleados</description>
-	
+
 	<properties>
 		<java.version>1.8</java.version>
 		<io.springfox.version>2.9.2</io.springfox.version>
 		<org.projectlombok.version>1.18.8</org.projectlombok.version>
 		<org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
-		<io.springfox.version>2.9.2</io.springfox.version>
 		<org.apache.httpcomponents.version>4.5.9</org.apache.httpcomponents.version>
 	</properties>
-	
+
 	<dependencies>
-	
-	<!-- ========================= Web REST ======================== -->
-	<!-- Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container -->
-	
+
+		<!-- ========================= Web REST ======================== -->
+		<!-- Starter for building web, including RESTful, applications using Spring 
+			MVC. Uses Tomcat as the default embedded container -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<!-- ========================= Testing ======================== -->
-		<!-- Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest and Mockito -->
+		<!-- Starter for testing Spring Boot applications with libraries including 
+			JUnit, Hamcrest and Mockito -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -49,7 +51,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<!-- ======================== H2 ======================== -->
 
 		<dependency>
@@ -57,7 +59,7 @@
 			<artifactId>h2</artifactId>
 			<!-- <scope>runtime</scope> -->
 		</dependency>
-		
+
 		<!-- ======================== MapStruct ======================== -->
 
 		<dependency>
@@ -65,7 +67,7 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
-		
+
 		<!-- ======================== Lombok ======================== -->
 
 		<dependency>
@@ -73,7 +75,7 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- ======================== Swagger ======================== -->
 
 		<dependency>
@@ -95,7 +97,14 @@
 			<artifactId>httpclient</artifactId>
 			<version>${org.apache.httpcomponents.version}</version>
 		</dependency>
-		
+
+		<!-- ======================== Auth Basic Security ======================== -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

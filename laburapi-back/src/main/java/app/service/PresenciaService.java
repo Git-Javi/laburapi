@@ -22,6 +22,8 @@ public interface PresenciaService {
 	public List<PresenciaDto> findPresencias();
 	
 	public PresenciaDto updatePresenciaFieldsById(@NotNull @Positive Long id, Map<String,Object> fields);
+	
+	public List<PresenciaDto> findPresenciasByPersonaId(@NotNull @Positive Long personaId);
 
 	public void presenciaExists(@NotNull @Positive Long id);
 

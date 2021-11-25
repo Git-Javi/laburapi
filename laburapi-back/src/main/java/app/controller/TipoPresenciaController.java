@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(tags = "Tipo Presencia Controller")
+@Api(tags = "Tipo Presencia" , description = "Gestiona los tipos posibles de presencias")
 @Validated
 @Slf4j
 @RequestMapping(path = "/laburapi", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)

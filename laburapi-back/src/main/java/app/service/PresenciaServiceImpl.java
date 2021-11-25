@@ -33,6 +33,9 @@ public class PresenciaServiceImpl implements PresenciaService {
 
 	@Autowired
 	private PresenciaMapper presenciaMapper;
+	
+	@Autowired
+	private PersonaService personaServcie;
 
 	@Override
 	public PresenciaDto createPresencia(@NotNull @Valid PresenciaDto presencia) {
@@ -112,6 +115,22 @@ public class PresenciaServiceImpl implements PresenciaService {
 		});
 		PresenciaDto result = presenciaMergeIdSave(id, presenciaDto);
 		return result;
+	}
+	
+	@Override
+	public List<PresenciaDto> findPresenciasByPersonaId(@NotNull @Positive Long personaId) {
+
+		personaServcie.personaExists(personaId);
+		List<PresenciaDto> listaPresenciasDto = new ArrayList<>();
+		List<Presencia> listaPresencias = new ArrayList<>();
+		listaPresencias.addAll((List<Presencia>) presenciaRepository.findAllPresenciaByPersonaId(personaId));
+
+		for (Presencia p : listaPresencias) {
+			PresenciaDto pDto = presenciaMapper.presenciaToPresenciaDto(p);
+			listaPresenciasDto.add(pDto);
+		}
+
+		return listaPresenciasDto;
 	}
 
 	// -------------------------------------------------------------------------------
