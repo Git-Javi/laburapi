@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 
@@ -10,8 +11,9 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponent implements OnInit {
 
   id: string ='';
+  msg: string = '';
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -22,8 +24,10 @@ export class LoginComponent implements OnInit {
         console.log('holi----'+JSON.stringify(data));
         //this.router.navigate(/registro);
         console.log('sessionStorage----------->'+sessionStorage.getItem('id'))
+        this.router.navigateByUrl('/laburapi/registro')
       },(error)=>{
         console.log('No hay nadie registrado con ese ID');
+        this.msg = 'El ID introducido es incorrecto';
       }
     )
   }

@@ -10,6 +10,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 
+/* ########################### ROUTER ########################### */
+import { AppRoutingModule } from './app-routing.module';
+
 /* ########################### INTERCEPTORES ########################### */
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 
@@ -24,7 +27,8 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
