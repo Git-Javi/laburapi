@@ -1,7 +1,7 @@
-<div class="cotainer vh-100 overflow-auto, overflow-x: auto;" style="background-image: url('/assets/img/trabajo.jpg'); background-size: cover">
+<div class="cotainer vh-100 overflow-auto" style="background-image: url('/assets/img/trabajo.jpg'); background-size: cover">
     <div class="row bg m-0" style="min-height: 93%">
         <div class=" col d-flex justify-content-center align-items-center p-5">
-            <div class="card text-white " style="border-radius: 1rem; background-color: rgba(15, 15, 15, 0.623);">
+            <div class="card text-dark" style="border-radius: 1rem;min-width: 250px;">
                 <div class="card-body p-5 text-center">
                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                     <div class="mb-1 mt-4 pb-1 ">
@@ -10,15 +10,11 @@
                             <input type="text" id="personaId" class="form-control form-control-lg mb-3" [(ngModel)]="id" />
                             <small class="text-danger">{{msg}}</small>
                         </div>
-                        <button class="btn btn-outline-light btn-lg px-5" type="submit" (click)="getLogin()">Login</button>
+                        <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)="getLogin()">Login</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row m-auto">
-        <div class="col d-flex justify-content-sm-start justify-content-center">
-            <app-footer></app-footer>
-        </div>
-    </div>
+    <app-footer></app-footer>
 </div>
