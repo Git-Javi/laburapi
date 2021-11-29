@@ -14,7 +14,8 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { AppRoutingModule } from './app-routing.module';
 
 /* ########################### INTERCEPTORES ########################### */
-import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
+import { AuthInterceptor } from './interceptors/auth-interceptor.interceptor';
+import { UnAuthInterceptor } from './interceptors/unauth-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,10 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
-  }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: UnAuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

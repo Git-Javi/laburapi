@@ -1,4 +1,7 @@
+import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PresenciaService } from 'src/app/services/presencia.service';
 
 @Component({
   selector: 'app-registro',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor() { }
+  tiempoEfectivo: string = '';
 
-  ngOnInit(): void {
-  }
+  constructor(private presenciaService: PresenciaService, private router: Router ) { }
+
+  ngOnInit(): void {}
+
+
+
 
 }

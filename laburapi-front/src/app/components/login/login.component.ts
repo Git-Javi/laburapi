@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { SessionService } from 'src/app/services/session.service';
 
 
 @Component({
@@ -13,12 +13,12 @@ export class LoginComponent implements OnInit {
   id: string ='';
   msg: string = '';
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private sessionService: SessionService, private router: Router) { }
 
   ngOnInit(): void {}
 
   getLogin(){
-    this.loginService.getPersonaLogin(this.id).subscribe(
+    this.sessionService.getSessionLogin(this.id).subscribe(
       (data)=>{
         sessionStorage.setItem('id',data.id.toString());
         console.log('holi----'+JSON.stringify(data));
@@ -31,5 +31,4 @@ export class LoginComponent implements OnInit {
       }
     )
   }
-
 }
