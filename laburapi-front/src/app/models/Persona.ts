@@ -4,3 +4,12 @@ export interface IPersona {
     nombre:string;
     telefono:string;
 }
+
+export class Persona implements IPersona {
+    constructor(
+        public id: number,
+        public dni: string,
+        public nombre: string,
+        public telefono: string
+    ) {}
+}

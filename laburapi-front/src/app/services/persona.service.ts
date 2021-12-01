@@ -9,30 +9,31 @@ export class PersonaService {
 
   api_url: string = 'http://localhost:8080/laburapi';
 
-  constructor(private http: HttpClient) {
-    console.log("-- servicio funcionando --")
-  }
+  constructor(private http: HttpClient) {}
 
-  setPersonaSessionId(id: string): void {
+  /*setPersonaSessionId(id: string): void {
     sessionStorage.setItem('id',id);
   }
 
-   
   getPersonaSessionId(): string {
      return sessionStorage.getItem('id') || '';
   }
 
-  destroyPersonaSession(): void {
-    sessionStorage.clear();
+  setPersonaSessionData(id: string): void {
+    sessionStorage.setItem('id',id);
   }
 
-  isAuth(): boolean {
+  destroyPersonaSession(): void {
+    sessionStorage.clear();
+  }*/
+
+  /*isAuth(): boolean {
     if(sessionStorage.getItem('id')){
       return true;
     } else {
       return false;
     }
-  }
+  }*/
 
   getPersona(id: string){
     console.log('getPersona----------- el id de la autorización -----'+id);

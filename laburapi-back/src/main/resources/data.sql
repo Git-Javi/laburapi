@@ -9,4 +9,4 @@ VALUES
 	TIPO_PRESENCIA (nombre) 
 VALUES
 	('Trabajo'),
- 	('Formación');
+ 	('Formacion');

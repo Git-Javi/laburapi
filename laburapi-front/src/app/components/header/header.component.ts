@@ -10,22 +10,19 @@ import { PersonaService } from 'src/app/services/persona.service';
 })
 export class HeaderComponent implements OnInit {
 
-  nombre = '';
+  nombreSession = '';
 
   constructor(
     private sessionService: SessionService,
-    private personaService: PersonaService,
     private router: Router
-    ) { }
+    ) {}
 
   ngOnInit(): void {this.getPersonaNombre();}
 
   getPersonaNombre(){
-    let id = this.personaService.getPersonaSessionId();
-    this.personaService.getPersona(id).subscribe(
-      (data)=>{
-        this.nombre = data.nombre;
-      });
+    if(this.sessionService.isAuth()){
+      this.nombreSession = this.sessionService.getSessionData().nombre;
+    }
   }
 
   logout(){

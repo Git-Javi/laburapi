@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,20 +12,24 @@ export class LoginComponent implements OnInit {
   id: string ='';
   msg: string = '';
 
-  constructor(private sessionService: SessionService, private router: Router) { }
+  constructor(
+    private sessionService: SessionService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {}
 
   getLogin(){
     this.sessionService.getSessionLogin(this.id).subscribe(
       (data)=>{
-        sessionStorage.setItem('id',data.id.toString());
-        console.log('holi----'+JSON.stringify(data));
+        this.sessionService.setSessionData(data);
+        console.log('getLogin-----------getSessionLogin----------=>'+JSON.stringify(data));
         //this.router.navigate(/registro);
-        console.log('sessionStorage----------->'+sessionStorage.getItem('id'))
+        console.log('holi***********************=>'+sessionStorage.getItem('persona'));
         this.router.navigateByUrl('/laburapi/registro')
       },(error)=>{
         console.log('No hay nadie registrado con ese ID');
+        console.log('EL ID ***********************=>'+sessionStorage.getItem('id'));
         this.msg = 'El ID introducido es incorrecto';
       }
     )

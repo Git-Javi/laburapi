@@ -20,19 +20,21 @@
             </div>
         </div>
         <div class="col d-flex justify-content-center justify-content-md-start align-items-center bg-light">
-            <div class="card text-dark shadow bg-body rounded" style="border-radius: 1rem; min-width: 250px;">
+            <div class="card text-dark shadow bg-body rounded" style="border-radius: 1rem; min-width: 250px;max-width: 450px;">
                 <div class="card-body p-5 text-center">
-                    <div class="row m-0 d-flex justify-content-between ">
+                    <div class="row m-0 d-flex">
                         <div class="row p-0 pb-4 border-bottom">
-                            <div class="col d-flex p-0 align-items-center justify-content-end fs-6 fw-bold">
+                            <div class="col d-flex p-0 align-items-center justify-content-strat fs-6 fw-bold">
                                 Tipo de Jornada
                             </div>
                             <div class="col d-flex p-0 justify-content-end">
-                                <img src="assets/img/trabajoLogo.png" alt="laburaLogo" width="60" height="60" class="p-2 border  rounded-3 bg-secondary">
+                                <select class="form-select" [(ngModel)]="idTipoPresencia">
+                                    <option [ngValue]="tipoPresencia.id" *ngFor="let tipoPresencia of tiposPresencia">{{tipoPresencia.nombre}}</option>
+                                  </select>
                             </div>
                         </div>
                         <div class="row m-0 mt-4 d-flex justify-content-center">
-                            <button class="btn btn-warning" type="submit">Registrar</button>
+                            <button class="btn btn-warning" style="box-shadow: none;width: 200px;" type="submit" (click)="toggleBtnClass($event);toggleRegistroPresencia();">{{textoBtn}}</button>
                         </div>
                     </div>
                 </div>
