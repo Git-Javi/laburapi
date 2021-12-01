@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ITipoPresencia } from '../models/TipoPresencia';
 
 @Injectable({
@@ -9,10 +9,9 @@ export class TipoPresenciaService {
 
     api_url: string = 'http://localhost:8080/laburapi';
 
-    constructor(private http: HttpClient) { }
+    constructor( private http: HttpClient ) { }
 
     getTiposPresencia(){
-        console.log('getTiposPresencia----------------');
         return this.http.get<ITipoPresencia[]>(this.api_url+'/tipoPresencias')
     }
 }

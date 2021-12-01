@@ -15,7 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 /* ########################### INTERCEPTORES ########################### */
 import { AuthInterceptor } from './interceptors/auth-interceptor.interceptor';
-import { UnAuthInterceptor } from './interceptors/unauth-interceptor.interceptor';
+import { UnAuthInterceptor } from './interceptors/unAuth-interceptor.interceptor';
+import { HistoricoComponent } from './components/historico/historico.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UnAuthInterceptor } from './interceptors/unauth-interceptor.interceptor
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    HistoricoComponent
   ],
   imports: [
     BrowserModule,

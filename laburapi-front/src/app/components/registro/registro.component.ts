@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
 import { Presencia } from 'src/app/models/Presencia';
 import { ITipoPresencia, TipoPresencia } from 'src/app/models/TipoPresencia';
 import { PresenciaService } from 'src/app/services/presencia.service';
@@ -14,11 +13,10 @@ import { TipoPresenciaService } from 'src/app/services/tipoPresencia.service';
 
 export class RegistroComponent implements OnInit {
   
-  tiempoEfectivo: string = '';
   idTipoPresencia: number = 1;
   nombreTipoPresencia: string = '';
   tiposPresencia: ITipoPresencia[] = [];
-  incioPresencia:boolean = false;
+
   idPresenciaRegistrada:number = 0;
   textoBtn:string = '';
 
@@ -26,13 +24,14 @@ export class RegistroComponent implements OnInit {
     private sessionService: SessionService,
     private presenciaService: PresenciaService,
     private tipoPresenciaService: TipoPresenciaService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
+    console.log('ngOnInit----------------------------------------------');
     this.getTiposPresencia();
-    this.toggleIncioPresencia();
+    //this.toggleIncioPresencia();
     this.toggleTextoBtn();
+    this.toggleBtn();
   }
 
   getTiposPresencia(){
@@ -46,20 +45,24 @@ export class RegistroComponent implements OnInit {
   savePresencia(){
     this.presenciaService.createPresencia(this.createPresencia()).subscribe(
       (data)=>{
-        this.idPresenciaRegistrada = data.id || 0;
+        //this.idPresenciaRegistrada = data.id || 0;
+        this.sessionService.setSessionPresenciaData(data);
         console.log('RegistroComponent-----------savePresencia----------=>'+JSON.stringify(data));
+        console.log('RegistroComponent-----------savePresencia------EN LA SESION----=>'+JSON.stringify(this.sessionService.getSessionPresenciaData()));
       } 
     );
   }
 
   updatePresencia(){
     let fin = { fin : new Date(Date.now()) };
+    let id = this.sessionService.getSessionPresenciaData().id || 0;
     console.log('########################################'+JSON.stringify(fin));
-    this.presenciaService.patchPresencia(this.sessionService.getSessionId(),fin).subscribe(
+    this.presenciaService.patchPresencia(id,fin).subscribe(
       (data)=>{
-        console.log('RegistroComponent-----------savePresencia----------=>'+JSON.stringify(data));
+        console.log('RegistroComponent-----------updatePresencia----------=>'+JSON.stringify(data));
       } 
     );
+    this.sessionService.removeSessionPresenciaData();
   }
 
   createPresencia():Presencia{
@@ -67,38 +70,38 @@ export class RegistroComponent implements OnInit {
       null,
       new Date(Date.now()),
       null,
-      this.sessionService.getSessionData(),
+      this.sessionService.getSessionPersonaData(),
       new TipoPresencia(this.idTipoPresencia,this.getTextoTipoPresencia())
     );
   }
 
   toggleRegistroPresencia(){
-    console.log('toggleRegistroPresencia-----------this.registrado'+this.incioPresencia);
-    if(this.incioPresencia){
+    const btnClassList: any = document.getElementById('btn')?.classList;
+    console.log('toggleRegistroPresencia-----------this.registrado');
+    if(this.sessionService.isRegistering()){
       console.log('toggleRegistroPresencia-----------this.registrado');
-      this.savePresencia();
+      this.updatePresencia();
+      btnClassList.remove('btn-secondary');
+      btnClassList.remove('text-warning'); 
+      btnClassList.add('btn-warning');
+      btnClassList.add('text-dark');
+      this.textoBtn = 'Inciar';
     } else {
       console.log('toggleRegistroPresencia-----------this.Not!registrado');
-      this.updatePresencia();
-    }
-    console.log('toggleRegistroPresencia-----------toggleTextoBtn');
-    this.toggleIncioPresencia();
-    this.toggleTextoBtn();
-  }
-
-  toggleTextoBtn(){
-    if(this.incioPresencia){
-      this.textoBtn = 'Iniciar';
-    } else {
+      this.savePresencia();
+      btnClassList.remove('btn-warning');
+      btnClassList.remove('text-dark'); 
+      btnClassList.add('btn-secondary');
+      btnClassList.add('text-warning');
       this.textoBtn = 'Finalizar';
     }
   }
 
-  toggleIncioPresencia(){
-    if(this.incioPresencia){
-      this.incioPresencia = false;
+  toggleTextoBtn(){
+    if(this.sessionService.isRegistering()){
+      this.textoBtn = 'Finalizar';
     } else {
-      this.incioPresencia = true;
+      this.textoBtn = 'Inciar';
     }
   }
 
@@ -107,18 +110,25 @@ export class RegistroComponent implements OnInit {
     if(texto){ return texto; } else { return ''; }
   }
 
-  toggleBtnClass(e:any) {
-    const classList = e.target.classList;
-    if(this.incioPresencia){
-      classList.remove('btn-warning');
-      classList.remove('text-dark'); 
-      classList.add('btn-secondary');
-      classList.add('text-warning');
+  toggleBtn() {
+    const btnClassList: any = document.getElementById('btn')?.classList;
+    const selectElement: any = document.getElementById("select");
+    console.log('????????#####El valor del registrado#####??????????? '+this.sessionService.isRegistering());
+    if(this.sessionService.isRegistering()){
+      console.log('????????SI está registrando???????????'+btnClassList);
+      btnClassList.remove('btn-warning');
+      btnClassList.remove('text-dark'); 
+      btnClassList.add('btn-secondary');
+      btnClassList.add('text-warning');
+      selectElement.disabled = true;
     } else {
-      classList.remove('btn-secondary');
-      classList.remove('text-warning'); 
-      classList.add('btn-warning');
-      classList.add('text-dark');
+      console.log('????????No está registrando???????????'+btnClassList);
+      btnClassList.remove('btn-secondary');
+      btnClassList.remove('text-warning'); 
+      btnClassList.add('btn-warning');
+      btnClassList.add('text-dark');
+      selectElement.disabled = false;
     }
+    this.toggleTextoBtn();
   }
 }

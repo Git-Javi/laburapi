@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
-import { PersonaService } from 'src/app/services/persona.service';
 
 @Component({
   selector: 'app-header',
@@ -21,12 +20,12 @@ export class HeaderComponent implements OnInit {
 
   getPersonaNombre(){
     if(this.sessionService.isAuth()){
-      this.nombreSession = this.sessionService.getSessionData().nombre;
+      this.nombreSession = this.sessionService.getSessionPersonaData().nombre;
     }
   }
 
   logout(){
     this.sessionService.sessionLogout();
-    this.router.navigateByUrl('/laburapi/login')
+    this.router.navigateByUrl('login')
   }
 }

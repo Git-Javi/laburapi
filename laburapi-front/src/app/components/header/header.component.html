@@ -1,6 +1,6 @@
 <div class="row m-auto border-bottom">
     <div class="col d-flex align-items-center justify-content-between mx-3">
-        <a class="navbar-brand" href="/laburapi/registro"><img src="assets/img/laburapi.png" alt="laburaLogo" width="155" height="33"></a>
+        <a class="navbar-brand" [routerLink]="['/registro']"><img src="assets/img/laburapi.png" alt="laburaLogo" width="155" height="33"></a>
         <nav class="navbar navbar-expand-sm navbar-light">
             <div class="container px-3 py-2" style="border-radius: 1rem;">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,11 +9,14 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link active mx-5" href="#">Histórico</a>
+                            <a class="nav-link active mx-3" [routerLink]="['/registro']">Registro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active mx-3" [routerLink]="['/historico']">Histórico</a>
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <button class="btn btn-secondary text-dark" (click)="logout()">
+                        <button class="btn btn-secondary text-dark ms-3" (click)="logout()">
                             <span class="navbar-text me-3 text-warning">{{nombreSession}}</span>
                             Logout
                         </button>

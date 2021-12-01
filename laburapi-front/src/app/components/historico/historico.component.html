@@ -1,0 +1,28 @@
+<div class="cotainer vh-100 overflow-auto bg-light">
+    <app-header></app-header>
+    <div class="row d-flex m-0" style="min-height: 85%">
+        <div class="col d-flex justify-content-center justify-content-md-end align-items-center">
+            <table class="table my-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo Presencia</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora Inicio</th>
+                        <th scope="col">Hora Fin</th>
+                        <th scope="col">Horas efectivas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let presencia of presencias">
+                        <td>{{presencia.tipoPresencia.nombre}}</td>
+                        <td>{{presencia.inicio | date:'dd/MM/yyyy'}}</td>
+                        <td>{{presencia.inicio | date:'H:mm'}}</td>
+                        <td>{{presencia.fin | date:'H:mm'}}</td>
+                        <td>{{getHours(presencia.inicio,presencia.fin)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

@@ -22,14 +22,9 @@ export class LoginComponent implements OnInit {
   getLogin(){
     this.sessionService.getSessionLogin(this.id).subscribe(
       (data)=>{
-        this.sessionService.setSessionData(data);
-        console.log('getLogin-----------getSessionLogin----------=>'+JSON.stringify(data));
-        //this.router.navigate(/registro);
-        console.log('holi***********************=>'+sessionStorage.getItem('persona'));
-        this.router.navigateByUrl('/laburapi/registro')
+        this.sessionService.setSessionPersonaData(data);
+        this.router.navigateByUrl('registro')
       },(error)=>{
-        console.log('No hay nadie registrado con ese ID');
-        console.log('EL ID ***********************=>'+sessionStorage.getItem('id'));
         this.msg = 'El ID introducido es incorrecto';
       }
     )

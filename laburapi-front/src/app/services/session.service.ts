@@ -1,6 +1,6 @@
-//import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPersona } from '../models/Persona';
+import { IPresencia } from '../models/Presencia';
 import { PersonaService } from './persona.service';
 
 @Injectable({
@@ -9,10 +9,7 @@ import { PersonaService } from './persona.service';
 
 export class SessionService {
 
-  constructor(
-    //private http: HttpClient,
-    private personaService: PersonaService
-  ) {}
+  constructor( private personaService: PersonaService ) {}
 
   setSessionId(id: string): void {
     sessionStorage.setItem('id',id);
@@ -22,15 +19,27 @@ export class SessionService {
       return sessionStorage.getItem('id') || '';
   }
     
-  setSessionData(sessionData: IPersona): void {
-    sessionStorage.setItem('persona',JSON.stringify(sessionData));
+  setSessionPersonaData(sessionPersonaData: IPersona): void {
+    sessionStorage.setItem('persona',JSON.stringify(sessionPersonaData));
   }
 
-  getSessionData(): IPersona {
+  getSessionPersonaData(): IPersona {
     return JSON.parse(sessionStorage.getItem('persona') || '');
   }
+
+  setSessionPresenciaData(sessionPresenciaData: IPresencia): void {
+    sessionStorage.setItem('presencia',JSON.stringify(sessionPresenciaData));
+  }
+
+  getSessionPresenciaData(): IPresencia {
+    return JSON.parse(sessionStorage.getItem('presencia') || '');
+  }
     
-  destroyDataSession(): void {
+  removeSessionPresenciaData(){
+    sessionStorage.removeItem('presencia');
+  }
+
+  destroySession(): void {
     sessionStorage.clear();
   }
 
@@ -42,14 +51,20 @@ export class SessionService {
     }
   }
 
+  isRegistering(): boolean {
+    if(sessionStorage.getItem('presencia')){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getSessionLogin(id: string) {
-    console.log('LoginService----id---->'+id);
     this.setSessionId(id);
     return this.personaService.getPersona(id);
   }
 
   sessionLogout() {
-    this.destroyDataSession();
-    console.log('Ya no hya id--> sessionLogout')
+    this.destroySession();
   }
 }
